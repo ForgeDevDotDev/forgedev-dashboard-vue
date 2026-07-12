@@ -46,3 +46,7 @@ server/.env
 
 #Any env files
 *.env
+
+#convex env
+.env
+.env.local
