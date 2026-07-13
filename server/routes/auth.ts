@@ -23,18 +23,18 @@ router.get("/callback", async (req, res) => {
       clientId: process.env.WORKOS_CLIENT_ID!,
       code,
     });
-    
+
     const { user, accessToken, refreshToken } = authResponse;
 
-// Assign default role
-const loggedInUser = {
-  ...user,
-  email:user.email,
-  name:user.firstName,
-  role: "Client",
-};
+    // Assign default role
+    const loggedInUser = {
+      ...user,
+      email: user.email,
+      name: user.firstName,
+      role: "Client",
+    };
 
-return res.redirect("http://localhost:5173");    //temporarily redirect frontend
+    return res.redirect("http://localhost:5173");  // temporarily redirect frontend
 
   } catch (error) {
     console.error(error);
