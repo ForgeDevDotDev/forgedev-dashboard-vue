@@ -1,11 +1,12 @@
 declare module "express-serve-static-core" {
-  interface Request {
-    user?: {
+  interface user {
       id: string;
-      email?: string;
-      role?: string;
-    };
+      email: string; //email required always(not ?)
+      role: string;
+    }
+    interface Request{
+      user: User;
+    }
   }
-}
 
 export {};
