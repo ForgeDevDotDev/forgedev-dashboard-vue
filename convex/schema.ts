@@ -4,15 +4,25 @@ import { v } from "convex/values";
 
 export default defineSchema({
   users: defineTable({
-    name: v.string(),
+    workosUserId: v.string(),
     email: v.string(),
-    image: v.optional(v.string()),
-    role: v.string(),
+    name: v.string(),
 
+    role: v.union(
+      v.literal("admin"),
+      v.literal("client"),
+      v.literal("senior")
+    ),
+
+    avatarUrl: v.optional(v.string()),
     track: v.optional(v.string()),
     domain: v.optional(v.string()),
     tier: v.optional(v.string()),
     cohort: v.optional(v.string()),
-    startDate: v.optional(v.string()),
+    startDate: v.optional(v.number()),
+    endDate: v.optional(v.number()),
+    status: v.optional(v.string()),
+    assignedSeniorId: v.optional(v.id("users")),
+    timezone: v.optional(v.string()),
   }),
 });
