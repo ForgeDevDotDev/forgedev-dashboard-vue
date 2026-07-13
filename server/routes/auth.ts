@@ -34,7 +34,7 @@ router.get("/callback", async (req, res) => {
       role: "Client",
     };
 
-    return res.redirect("http://localhost:5173");  // temporarily redirect frontend
+    return res.redirect(process.env.FRONTEND_URL!);  //localhost defines in server/.env
 
   } catch (error) {
     console.error(error);
