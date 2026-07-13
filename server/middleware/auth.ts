@@ -1,11 +1,11 @@
-import { Request, Response, NextFunction } from "express";
+import type { Request, Response, NextFunction } from "express"; //type
 
 export function requireAuth(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-  const user = (req as any).user; //typescript wasn't recognizing req.user
+  const user = req.user; //avoid (req as any).user
   if (!user) {
     return res.status(401).json({
       message: "Unauthorized",
@@ -17,9 +17,9 @@ export function requireAuth(
 
 export function requireRole(...roles: string[]) {
   return (req: Request, res: Response, next: NextFunction) => {
-    const user = (req as any).user
+    const user = req.user
 
-    if (!user || !roles.includes(user.role)) {
+    if (!user ||!user.role || !roles.includes(user.role)) { //!user.req 
       return res.status(403).json({
         message: "Forbidden",
       });
