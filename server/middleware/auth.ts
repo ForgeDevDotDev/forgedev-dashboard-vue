@@ -1,28 +1,47 @@
-import type { Request, Response, NextFunction } from "express"; //type
+import type { RequestHandler } from "express";
 
-export function requireAuth(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
-  const user = req.user; //avoid (req as any).user
+export interface AuthUser {
+  id: string;
+  email: string;
+  role: string;
+}
+
+export const requireAuth: RequestHandler = (req, res, next) => {
+  const user = req.user;
+
   if (!user) {
-    return res.status(401).json({
+    res.status(401).json({
       message: "Unauthorized",
     });
+    return;
+  }
+
+  if (!user.email) {
+    res.status(401).json({
+      message: "Authenticated user email is missing",
+    });
+    return;
   }
 
   next();
-}
+};
 
-export function requireRole(...roles: string[]) {
-  return (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user
+export function requireRole(...roles: string[]): RequestHandler {
+  return (req, res, next) => {
+    const user = req.user;
 
-    if (!user ||!user.role || !roles.includes(user.role)) { //!user.req 
-      return res.status(403).json({
+    if (!user) {
+      res.status(401).json({
+        message: "Unauthorized",
+      });
+      return;
+    }
+
+    if (!roles.includes(user.role)) {
+      res.status(403).json({
         message: "Forbidden",
       });
+      return;
     }
 
     next();

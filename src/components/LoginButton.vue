@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import axios from 'axios'
+import { ref } from "vue"
 
 const isLoading = ref(false)
 
-const loginWithGoogle = async () => {
+const loginWithGoogle = () => {
   isLoading.value = true
-  try {
-    const { data } = await axios.get('http://localhost:3000/api/auth/login')
-    window.location.href = data.authorizationUrl
-  } catch (err) {
-    console.error(err)
-    isLoading.value = false
-  }
+
+  window.location.href =
+    `${import.meta.env.VITE_API_BASE_URL}/api/auth/login` //direct redirect without axios
 }
 </script>
 
 <template>
-  <button @click="loginWithGoogle" :disabled="isLoading">
-    {{ isLoading ? "Loading..." : "Login with Google" }}
+  <button
+    @click="loginWithGoogle"
+    :disabled="isLoading"
+  >
+    {{ isLoading
+      ? "Loading..."
+      : "Login with Google" }}
   </button>
 </template>

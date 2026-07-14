@@ -1,12 +1,11 @@
-declare module "express-serve-static-core" {
-  interface user {
-      id: string;
-      email: string; //email required always(not ?)
-      role: string;
-    }
-    interface Request{
-      user: User;
+import type { AuthUser } from "../middleware/auth";
+
+declare global {
+  namespace Express {
+    interface Request {
+      user: AuthUser;
     }
   }
+}
 
 export {};
