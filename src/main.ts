@@ -16,4 +16,4 @@ app.use(router);
 
 app.mount("#app");
 
-// now the problem is i need the convexVuePlugins to run the (query) and (mutations), 
+//convexVuePlugins to run the (query) and (mutations), 
