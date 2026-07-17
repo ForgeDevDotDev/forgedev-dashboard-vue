@@ -1,0 +1,14 @@
+#Dependecies
+node_modules
+#server
+node_modules/
+**/node_modules
+
+#Environment files
+.env 
+.env.local
+*.envlocal
+
+#convex
+convex/.env.local
+convex/_generated/
