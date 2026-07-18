@@ -2,27 +2,34 @@ import { mutation, query } from "./_generated/server";
 import {v} from "convex/values"
 
 export const create = mutation({
-  args: {},
+  args: {
+    clientId: v.id("users"),
+    sprintNumber: v.number(),
+    codeQuality: v.number(),
+    velocity: v.number(),
+    iterationQuality: v.number(),
+    communication: v.number(),
+    notes: v.optional(v.string()),
+    recordedAt: v.number(),
+    recordedBy: v.id("users"),
+  },
   handler: async (ctx,args) => {
-    // ctx.db.insert(...)
-    return await ctx.db.insert;
+    return await ctx.db.insert("metrics",args);
   },
 });
 
 export const getAll = query({
   args: {},
   handler: async (ctx) => {
-    // return await ctx.db.query("metrics").collect();
     return [];
   },
 });
 
 export const getByClient = query({
   args: {
-    clientId: v.id("clients"),
+    clientId: v.id("users"),//in schemas we describe users(not client).
   },
   handler: async (ctx, args) => {
-    // query by client
   },
 });
 
@@ -31,7 +38,6 @@ export const update = mutation({
     id: v.id("metrics"),
   },
   handler: async (ctx, args) => {
-    // update metric
   },
 });
 
@@ -40,11 +46,5 @@ export const remove = mutation({
     id: v.id("metrics"),
   },
   handler: async (ctx, args) => {
-    // delete metric
   },
 });
-//post-> mutation
-//get-> query getALL
-//get/client:id-> query getByClient
-//put-> mutation update
-//delete id -> mutation reomve.
